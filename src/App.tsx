@@ -1,9 +1,13 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.main}>
+      <div className={styles.container}>
+        <p>Test</p>
+        <p>Test</p>
+      </div>
     </div>
   );
 }
