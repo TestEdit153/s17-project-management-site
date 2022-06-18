@@ -1,8 +1,10 @@
-import styles from 'Project.module.css';
+import styles from './Project.module.css';
 
 const Project = () =>{
     return(
-        <div className={styles.main}> </div>
+        <div className={styles.main}>
+            Project Details Component
+        </div>
     )
 }
 

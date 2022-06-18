@@ -1,8 +1,10 @@
-import styles from 'Create.module.css';
+import styles from './Create.module.css';
 
 const Create = () =>{
     return(
-        <div className={styles.main}> </div>
+        <div className={styles.main}>
+            Create Component
+        </div>
     )
 }
 

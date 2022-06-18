@@ -1,8 +1,10 @@
-import styles from 'Signup.module.css';
+import styles from './Signup.module.css';
 
 const Signup = () =>{
     return(
-        <div className={styles.main}> </div>
+        <div className={styles.main}>
+            Signup component
+        </div>
     )
 }
 
