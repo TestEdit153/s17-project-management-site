@@ -16,3 +16,7 @@
 .main a img{
     @apply w-6 mr-2;
 }
+
+a.active span{
+    @apply border border-green-500;
+}

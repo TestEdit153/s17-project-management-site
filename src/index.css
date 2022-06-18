@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.alert{ @apply p-2 text-center rounded-lg w-full  my-3; }
+
+.loading{ @apply text-gray-500 bg-sky-100 border border-sky-500; }
+
+.error{ @apply text-red-500  bg-red-100 border border-red-500; }
+
+.success{
+    @apply text-green-500  bg-green-100 border border-green-500;
+}
