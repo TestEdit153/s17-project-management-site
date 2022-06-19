@@ -15,7 +15,18 @@ const Signup = () =>{
     const handleSubmit = (e:any) =>{
         e.preventDefault();
         console.log(email, password, displayName, thumbnail);
+        signup(
+            {
+                email,password,displayName,thumbnail
+            }
+        ).then(() =>{
+            setEmail("")
+            setPassword("")
+            setDisplayName("")
+            setThumbnail(null)
+        })
     }
+
     const handleFileChange = (e:any) =>{
         setThumbnail(null)
         let selected = e.target.files[0]

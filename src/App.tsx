@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './App.module.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Navbar from './components/Navbar';
 import Create from "./pages/create/Create";
@@ -31,8 +31,12 @@ function App() {
                                     <Route path="/" element={<Dashboard/>}/>
                                     <Route path="/create" element={<Create/>}/>
                                     <Route path="/project/:id" element={<Project/>}/>
-                                    <Route path="/login" element={<Login/>}/>
-                                    <Route path="/signup" element={<Signup/>}/>
+                                    <Route path="/login" element={
+                                        <Navigate to="/" replace={true} />
+                                    }/>
+                                    <Route path="/signup" element={
+                                        <Navigate to="/" replace={true} />
+                                    }/>
                                 </Routes>
                             </div>
                         </div>
@@ -41,9 +45,15 @@ function App() {
                         <div className="grid grid-cols-1 gap-4">
                             <div className="p-3 pt-16 min-h-screen">
                                 <Routes>
-                                    <Route path="/" element={<Dashboard/>}/>
-                                    <Route path="/create" element={<Create/>}/>
-                                    <Route path="/project/:id" element={<Project/>}/>
+                                    <Route path="*" element={
+                                        <Navigate to="/signup" replace={true} />
+                                    }/>
+                                    {/*<Route path="/create" element={*/}
+                                    {/*    <Navigate to="/signup" replace={true} />*/}
+                                    {/*}/>*/}
+                                    {/*<Route path="/project/:id" element={*/}
+                                    {/*    <Navigate to="/signup" replace={true} />*/}
+                                    {/*}/>*/}
                                     <Route path="/login" element={<Login/>}/>
                                     <Route path="/signup" element={<Signup/>}/>
                                 </Routes>

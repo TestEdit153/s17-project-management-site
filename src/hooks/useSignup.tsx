@@ -1,8 +1,10 @@
 import {useEffect, useState} from "react";
-import {projectAuth} from "../firebase/config";
+import {projectAuth, projectStorage} from "../firebase/config";
 import {useAuthContext} from "./useAuthContext";
 
-type FireBaseSignupProps = {email:string, password:string, displayName:string}
+type FireBaseSignupProps = {
+    email:string, password:string, displayName:string, thumbnail:any
+}
 
 export const useSignup = () =>{
     const [isCancelled, setIsCancelled] = useState<boolean>(false);
@@ -11,36 +13,37 @@ export const useSignup = () =>{
     // @ts-ignore
     const {dispatch} = useAuthContext();
 
-
     useEffect(()=>{
         setIsCancelled(false)
         return ()=> setIsCancelled(true)
     },[])
 
-
-
     const signup = async (
-        {email, password, displayName}:FireBaseSignupProps) =>{
+        {email, password, displayName, thumbnail}:FireBaseSignupProps) =>{
     // 1. reset error to null
         setError(null)
         setIsLoading(true)
     // 2. Firebase may raise signup Error
         try{
     // 3. use Firebase Service to create a User
-            const res  =
-                await projectAuth
+            const res  = await projectAuth
                      .createUserWithEmailAndPassword(email, password)
 
     // 4. If Firebase does not respond
             if(!res){ throw new Error("Could not complete signup") }
-            // 5. update user Profile with display name
-            await res.user?.updateProfile({displayName})
 
-    // DISPATCH LOGIN
-            dispatch({type: "SIGNUP", payload: res.user})
+    // 6. DISPATCH LOGIN to set the authorized user on AuthContext
+        dispatch({type: "SIGNUP", payload: res.user})
 
+    // ---> Upload Thumbnail
+        const uploadPath = `thumbnails/${res.user?.uid}/${thumbnail.name}`
+        const img = await projectStorage.ref(uploadPath).put(thumbnail);
+        const imgURL = await img.ref.getDownloadURL();
 
-    // 6. If signup successful, reset state variables
+    // 5. update user Profile with display name & Image
+            await res.user?.updateProfile({displayName, photoURL:imgURL})
+
+    // 7. If signup successful, reset state variables
             if(!isCancelled) {
                 console.log("useSignup Not cancelled, updating State");
                 setError(null)
