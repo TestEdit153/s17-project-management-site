@@ -16,55 +16,54 @@ function App() {
 
     return (
         <div className={styles.main}>
-            <BrowserRouter>
-                <div className="fixed w-full">
-                    <Navbar/>
-                </div>
-                {user
-                    ? (
-                        <div className="grid grid-cols-3 gap-4">
-                            <div className="col-span-1 p-3 pt-16 pr-0 bg-slate-200 min-h-screen ">
-                                <Sidebar />
-                            </div>
-                            <div className="col-span-2 p-3 pt-16 bg-gray-100 min-h-screen">
-                                <Routes>
-                                    <Route path="/" element={<Dashboard/>}/>
-                                    <Route path="/create" element={<Create/>}/>
-                                    <Route path="/project/:id" element={<Project/>}/>
-                                    <Route path="/login" element={!user
-                                        ? <Login />
-                                        : <Navigate to="/" replace={true} />
-                                    }/>
-                                    <Route path="/signup" element={!user
-                                            ? <Signup />
-                                            : <Navigate to="/" replace={true} />
-                                    }/>
-                                </Routes>
-                            </div>
-                        </div>
-                    )
-                    : (
-                        <div className="grid grid-cols-1 gap-4">
-                            <div className="p-3 pt-16 min-h-screen">
-                                <Routes>
-                                    <Route path="*" element={
-                                        <Navigate to="/signup" replace={true} />
-                                    }/>
-                                    {/*<Route path="/create" element={*/}
-                                    {/*    <Navigate to="/signup" replace={true} />*/}
-                                    {/*}/>*/}
-                                    {/*<Route path="/project/:id" element={*/}
-                                    {/*    <Navigate to="/signup" replace={true} />*/}
-                                    {/*}/>*/}
-                                    <Route path="/login" element={<Login/>}/>
-                                    <Route path="/signup" element={<Signup/>}/>
-                                </Routes>
-                            </div>
-                        </div>
-                    )
-                }
-
-            </BrowserRouter>
+            {/* 1. Render app only if authIsReady */}
+            {authIsReady
+                ? (
+                    <BrowserRouter>
+                        <div className="fixed w-full"> <Navbar/> </div>
+                        {user
+                            ? (
+                                // user != null, - show 2 col layout with sidebar
+                                <div className={styles["grid-3-cols"]}>
+                                    <div className={styles["sidebar"]}>
+                                        <Sidebar />
+                                    </div>
+                                    <div className={styles["page-content"]}>
+                                        <Routes>
+                                            <Route path="/" element={<Dashboard/>}/>
+                                            <Route path="/create" element={<Create/>}/>
+                                            <Route path="/project/:id" element={<Project/>}/>
+                                            <Route path="/login" element={
+                                                <Navigate to="/" replace={true} />
+                                            }/>
+                                            <Route path="/signup" element={
+                                                <Navigate to="/" replace={true} />
+                                            }/>
+                                        </Routes>
+                                    </div>
+                                </div>
+                            )
+                            : (
+                                // user == null - do not show sidebar
+                                <div className={styles["grid-1-cols"]}>
+                                    <div className="p-3 pt-16 min-h-screen">
+                                        <Routes>
+                                            <Route path="*" element={
+                                                <Navigate to="/signup" replace={true} />
+                                            }/>
+                                            <Route path="/login" element={<Login/>}/>
+                                            <Route path="/signup" element={<Signup/>}/>
+                                        </Routes>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </BrowserRouter>
+                )
+                : (
+                    <div>Checking Authentication</div>
+                )
+            }
         </div>
     );
 }

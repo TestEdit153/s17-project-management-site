@@ -11,7 +11,7 @@ const Sidebar = () =>{
     return(
         <div className={styles.main}>
             <div className="sidebar-content">
-                <div className={styles["user"]}> Hey {user.displayName} </div>
+                <div className={styles["user"]}> Hey {user?.displayName} </div>
                 <div className={styles["navlinks"]}>
                     <ul>
                         <li>

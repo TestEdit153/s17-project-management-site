@@ -1,2 +1,15 @@
 .main {
 }
+
+.grid-3-cols{
+    @apply grid grid-cols-3 gap-4
+}
+.grid-1-cols{
+    @apply grid grid-cols-1
+}
+.sidebar{
+    @apply col-span-1 p-3 pt-16 pr-0 bg-slate-200 min-h-screen;
+}
+.page-content{
+    @apply col-span-2 p-3 pt-16 bg-gray-100 min-h-screen;
+}
