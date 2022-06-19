@@ -7,6 +7,7 @@ import {useAuthContext} from "../hooks/useAuthContext";
 const Sidebar = () =>{
     //@ts-ignore
     const {user} = useAuthContext();
+
     return(
         <div className={styles.main}>
             <div className="sidebar-content">

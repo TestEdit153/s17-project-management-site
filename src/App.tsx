@@ -12,7 +12,7 @@ import {useAuthContext} from "./hooks/useAuthContext";
 
 function App() {
     //@ts-ignore
-    const {user} = useAuthContext()
+    const {user, authIsReady} = useAuthContext()
 
     return (
         <div className={styles.main}>
@@ -31,11 +31,13 @@ function App() {
                                     <Route path="/" element={<Dashboard/>}/>
                                     <Route path="/create" element={<Create/>}/>
                                     <Route path="/project/:id" element={<Project/>}/>
-                                    <Route path="/login" element={
-                                        <Navigate to="/" replace={true} />
+                                    <Route path="/login" element={!user
+                                        ? <Login />
+                                        : <Navigate to="/" replace={true} />
                                     }/>
-                                    <Route path="/signup" element={
-                                        <Navigate to="/" replace={true} />
+                                    <Route path="/signup" element={!user
+                                            ? <Signup />
+                                            : <Navigate to="/" replace={true} />
                                     }/>
                                 </Routes>
                             </div>
