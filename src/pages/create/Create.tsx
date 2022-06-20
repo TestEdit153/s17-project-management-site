@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import Select from 'react-select';
 import {useCollection} from "../../hooks/useCollection";
 import { alert_Error } from '../../helpers/AlertHelpers';
+import * as _ from "lodash";
 
 type User = { displayName: string, online: boolean, photoURL: string }
 type Users = Array<User> | []
@@ -36,6 +37,13 @@ const Create = () => {
         })
         setUsers(options)
     }, [documents])
+
+
+    useEffect(() =>{
+        setAssignedUsers(prevState => {
+            return _.differenceWith(prevState, users, _.isEqual)
+        })
+    }, [users, assignedUsers])
 
 
     const handleSubmit = (e: any) => {
@@ -100,14 +108,15 @@ const Create = () => {
                                 Assigned Users:
                         </label>
                         <Select options={users}
-                                onChange={(option) => {
-                                    // @ts-ignore
-                                    setAssignedUsers(option)
-                                }}
-                                isMulti
+                            onChange={(option) => {
+                                // @ts-ignore
+                                setAssignedUsers(option)
+
+                            }}
+                            isMulti
                         />
-                    </div>
                 </div>
+            </div>
 
                 {alert_Error(formError)}
                 {alert_Error(error)}
