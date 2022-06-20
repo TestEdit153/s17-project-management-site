@@ -9,6 +9,7 @@ import Login from './pages/login/Login';
 import Signup from "./pages/signup/Signup";
 import Sidebar from './components/Sidebar';
 import {useAuthContext} from "./hooks/useAuthContext";
+import OnlineUsers from "./components/OnlineUsers";
 
 function App() {
     //@ts-ignore
@@ -24,7 +25,7 @@ function App() {
                         {user
                             ? (
                                 // user != null, - show 2 col layout with sidebar
-                                <div className={styles["grid-3-cols"]}>
+                                <div className={styles["grid-12-cols"]}>
                                     <div className={styles["sidebar"]}>
                                         <Sidebar />
                                     </div>
@@ -49,7 +50,7 @@ function App() {
                                     <div className="p-3 pt-16 min-h-screen">
                                         <Routes>
                                             <Route path="*" element={
-                                                <Navigate to="/signup" replace={true} />
+                                                <Navigate to="/login" replace={true} />
                                             }/>
                                             <Route path="/login" element={<Login/>}/>
                                             <Route path="/signup" element={<Signup/>}/>

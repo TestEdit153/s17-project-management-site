@@ -1,6 +1,13 @@
 .main{
 }
 
+.sidebar-content{
+
+}
+
+.navlinks{
+    @apply mt-3 mb-6;
+}
 .user{
    @apply text-gray-400 text-center text-sm font-bold;
 }

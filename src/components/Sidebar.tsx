@@ -4,6 +4,7 @@ import AddIcon from '../assets/add_icon.svg'
 import {NavLink} from "react-router-dom";
 import Avataar from "./Avataar";
 import {useAuthContext} from "../hooks/useAuthContext";
+import OnlineUsers from "./OnlineUsers";
 
 const Sidebar = () =>{
     //@ts-ignore
@@ -11,7 +12,7 @@ const Sidebar = () =>{
 
     return(
         <div className={styles.main}>
-            <div className="sidebar-content">
+            <div className={styles["sidebar-content"]}>
                 <Avataar user={user} />
                 <div className={styles.user}> hey {user.displayName} </div>
                 <div className={styles["navlinks"]}>
@@ -29,6 +30,7 @@ const Sidebar = () =>{
                     </ul>
                 </div>
             </div>
+            <OnlineUsers />
         </div>
     )
 }

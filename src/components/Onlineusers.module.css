@@ -1,0 +1,11 @@
+.main{
+
+}
+
+.online{
+    @apply inline-block w-4 h-4 mr-2 rounded-full bg-green-500;
+}
+
+.offline{
+    @apply inline-block w-4 h-4 mr-2 rounded-full bg-gray-50;
+}
