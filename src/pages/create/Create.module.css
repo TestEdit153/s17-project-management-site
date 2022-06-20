@@ -1,3 +1,37 @@
 .main{
-	
+    @apply grid place-items-center;
+    @apply mt-5;
+}
+.main h3{
+    @apply  text-gray-400 mb-3 text-2xl text-center font-bold p-5;
+}
+form{
+    @apply bg-gray-100 px-9 py-7  border border-gray-300 shadow-md;
+    @apply w-4/5
+}
+.form-control{
+    @apply px-3 my-3;
+}
+.main label{
+    @apply text-gray-500 inline-block mb-1 ml-0.5;
+}
+.main input[type='text'] {
+    @apply form-input p-2 pl-2 rounded w-full text-gray-500 ;
+}
+
+textarea{
+    @apply form-input p-2 pl-2 rounded w-full text-gray-500 ;
+}
+
+.main input[type='date']{
+    @apply form-input p-2 pl-2 rounded w-48 block text-gray-400 ;
+}
+
+.btnSubmit{
+    @apply mt-3 mb-5 flex justify-end;
+}
+
+.main button{
+    @apply px-2 py-3 mt-4 mx-3 w-full bg-green-700 text-white rounded;
+    @apply hover:bg-green-500;
 }
