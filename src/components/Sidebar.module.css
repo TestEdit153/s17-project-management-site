@@ -2,7 +2,7 @@
 }
 
 .user{
-    @apply text-gray-400 ;
+   @apply text-gray-400 text-center text-sm font-bold;
 }
 
 .main a{
