@@ -1,9 +1,13 @@
 import { Project } from '../types/Project';
 import styles from './ProjectList.module.css';
+import {Link} from "react-router-dom";
 
+// When Project is fetched from DB, it has ID
+type ProjectDoc = Project & {id:string}
 
 const ProjectList = (props:any) =>{
-    const documents:Array<Project> = props.documents;
+    const documents:Array<ProjectDoc> = props.documents;
+
     return(
         <div className={styles.main}>
             {/* --- Check if documents is an empty array --- */}
@@ -11,8 +15,24 @@ const ProjectList = (props:any) =>{
 
             {/* --- If there are documents, then map them --- */}
             { documents.map(doc => {
-                    return <p key={doc.createdBy.id}>{doc.name}</p>
-                })
+                return  (
+                    <div className={styles.card}>
+                        <Link to={`/projects/${doc.id}`} key={doc.id}>
+                            <h4>{doc.name}</h4>
+                            <p>Due date: {doc.dueDate.toDate().toDateString()}</p>
+                            <div className={styles["assigned-to"]}>
+                                <ul>
+                                    {doc.assignedUsers.map(user =>{
+                                        return <li key={user.id}>
+                                            {user.displayName}
+                                        </li>
+                                    })}
+                                </ul>
+                            </div>
+                        </Link>
+                    </div>
+                )
+            })
             }
         </div>
     )

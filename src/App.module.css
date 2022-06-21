@@ -11,5 +11,5 @@
     @apply col-span-3 p-3 pt-16 pr-0 bg-slate-300 min-h-screen;
 }
 .page-content{
-    @apply col-span-9 p-3 pt-16 bg-gray-50 min-h-screen;
+    @apply col-span-9 p-3 pt-16  min-h-screen;
 }

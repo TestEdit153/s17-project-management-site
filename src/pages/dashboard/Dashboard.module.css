@@ -1,3 +1,7 @@
 .main{
 	
 }
+
+.title{
+    @apply text-3xl text-center my-5 text-gray-700
+}
