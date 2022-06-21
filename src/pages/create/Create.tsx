@@ -7,8 +7,10 @@ import * as _ from "lodash";
 import firebase from 'firebase/app'
 import {timestamp} from "../../firebase/config";
 import {useAuthContext} from "../../hooks/useAuthContext";
+import {useFirestore} from "../../hooks/useFirestore";
+import {useNavigate} from "react-router-dom";
+import {UserBase} from "../../types/UserBase";
 
-type UserBase = { id:string, displayName: string, photoURL: string }
 type OnlineStatus = {online: boolean}
 
 type UserOnline = UserBase & OnlineStatus
@@ -47,6 +49,8 @@ const Create = () => {
     const [formError, setFormError] = useState<string | null>(null);
     // @ts-ignore
     const {user} = useAuthContext();
+    const {response, addDocument} = useFirestore('projects')
+    const navigate = useNavigate();
 
     // 2. useEffect maps users document for Select options
     useEffect(() => {
@@ -56,7 +60,7 @@ const Create = () => {
         setUsers(options)
     }, [documents])
 
-
+    // Filters state users to remove the AssignedUser
     useEffect(() =>{
         setAssignedUsers(prevState => {
             return _.differenceWith(prevState, users, _.isEqual)
@@ -64,7 +68,7 @@ const Create = () => {
     }, [users])
 
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault();
         setFormError(null);
         if (!category) {
@@ -92,7 +96,6 @@ const Create = () => {
                 photoURL: au.value.photoURL
             }
         })
-
         const project:Project = {
             name, details,
             category: category.value,
@@ -101,7 +104,12 @@ const Create = () => {
             createdBy,
             assignedUsers: assignedUserList
         }
+
         console.log("Project Data", project);
+        await addDocument(project)
+        if(!response.error){
+           navigate("/", {replace:true})
+        }
     }
 
     return (

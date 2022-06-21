@@ -23,6 +23,12 @@ const firestoreReducer = (state, action) => {
     }
 }
 
+/**
+ *
+ * @param collection:string Name of the collection
+ * @returns {{response: {document, isPending, success, error}, addDocument:function, deleteDocument:function}}
+ * response Object that contains properties - document, isPending, success, error
+ */
 export const useFirestore = (collection) =>{
     const [response, dispatch] = useReducer(firestoreReducer, initializeState)
     const [isCancelled, setIsCancelled] = useState(false);
