@@ -4,9 +4,27 @@ import Select from 'react-select';
 import {useCollection} from "../../hooks/useCollection";
 import { alert_Error } from '../../helpers/AlertHelpers';
 import * as _ from "lodash";
+import firebase from 'firebase/app'
+import {timestamp} from "../../firebase/config";
+import {useAuthContext} from "../../hooks/useAuthContext";
 
-type User = { displayName: string, online: boolean, photoURL: string }
-type Users = Array<User> | []
+type UserBase = { id:string, displayName: string, photoURL: string }
+type OnlineStatus = {online: boolean}
+
+type UserOnline = UserBase & OnlineStatus
+type UsersOnline = Array<UserOnline> | []
+
+type AssignedUser = {label:string, value:UserOnline}
+type AssignedUsersList = Array<AssignedUser> | []
+
+type Project = {
+    name:string, details:string,
+    dueDate: firebase.firestore.Timestamp,
+    comments: string[],
+    category: string,
+    createdBy: UserBase
+    assignedUsers: Array<UserBase> | []
+}
 
 const categories = [
     {value: 'development', label: "Development"},
@@ -20,19 +38,19 @@ const Create = () => {
     const [details, setDetails] = useState('');
     const [dueDate, setDueDate] = useState('');
     const [category, setCategory] = useState<any>('');
-
-    const [formError, setFormError] = useState<string | null>(null);
-
-    // 1. Users is Array<User>
-    const [users, setUsers] = useState<Users>([])
-    const [assignedUsers, setAssignedUsers] = useState<Users>([]);
+    // 1. Users is Array<UserOnline>
+    const [users, setUsers] = useState<UsersOnline>([])
+    const [assignedUsers, setAssignedUsers] = useState<AssignedUsersList>([]);
 
     // 1. Get all users with useCollection Hook
     const {error, documents} = useCollection('users')
+    const [formError, setFormError] = useState<string | null>(null);
+    // @ts-ignore
+    const {user} = useAuthContext();
 
     // 2. useEffect maps users document for Select options
     useEffect(() => {
-        const options: any = documents?.map((user: User) => {
+        const options: any = documents?.map((user: UserOnline) => {
             return {value: user, label: user.displayName}
         })
         setUsers(options)
@@ -43,7 +61,7 @@ const Create = () => {
         setAssignedUsers(prevState => {
             return _.differenceWith(prevState, users, _.isEqual)
         })
-    }, [users, assignedUsers])
+    }, [users])
 
 
     const handleSubmit = (e: any) => {
@@ -53,12 +71,37 @@ const Create = () => {
             setFormError('Category cannot be Empty')
             return
         }
+        // @ts-ignore
         if (assignedUsers.length < 1) {
             setFormError("Project should have atleast one user")
             return
         }
 
-        console.log({name, details, dueDate, category, assignedUsers})
+        // @ts-ignore
+        console.log("Form data", {name, details, dueDate, category, assignedUsers})
+
+        const createdBy:UserBase = {
+            displayName: user.displayName,
+            id: user.uid,
+            photoURL: user.photoURL
+        }
+        const assignedUserList = assignedUsers.map(au =>{
+            return {
+                id: au.value.id,
+                displayName: au.value.displayName,
+                photoURL: au.value.photoURL
+            }
+        })
+
+        const project:Project = {
+            name, details,
+            category: category.value,
+            dueDate: timestamp.fromDate(new Date(dueDate)),
+            comments:[],
+            createdBy,
+            assignedUsers: assignedUserList
+        }
+        console.log("Project Data", project);
     }
 
     return (
