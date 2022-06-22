@@ -16,8 +16,8 @@ const ProjectList = (props:any) =>{
             {/* --- If there are documents, then map them --- */}
             { documents.map(doc => {
                 return  (
-                    <div className={styles.card}>
-                        <Link to={`/projects/${doc.id}`} key={doc.id}>
+                    <div className={styles.card} key={doc.id}>
+                        <Link to={`/projects/${doc.id}`} >
                             <h4>{doc.name}</h4>
                             <p>Due date: {doc.dueDate.toDate().toDateString()}</p>
                             <div className={styles["assigned-to"]}>
