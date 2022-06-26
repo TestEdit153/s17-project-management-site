@@ -1,4 +1,4 @@
-import { Project } from '../types/Project';
+import { Project } from '../../types/Project';
 import styles from './ProjectList.module.css';
 import {Link} from "react-router-dom";
 

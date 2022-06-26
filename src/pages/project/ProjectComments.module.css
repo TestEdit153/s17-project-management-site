@@ -1,0 +1,31 @@
+.main{
+    @apply mt-12
+}
+
+.main h2{
+    @apply text-2xl;
+}
+
+form{
+    @apply bg-gray-100 px-9 py-7  border border-gray-300 shadow-md;
+    @apply w-full
+}
+.form-control{
+    @apply px-3 my-3;
+}
+.main label{
+    @apply text-gray-500 inline-block mb-1 ml-0.5;
+}
+
+textarea{
+    @apply form-input p-2 pl-2 rounded w-full text-gray-500 ;
+}
+
+.btnSubmit{
+    @apply flex justify-end;
+}
+
+.main button{
+    @apply px-2 py-3 w-48 mr-3 bg-blue-700 text-white rounded;
+    @apply hover:bg-green-500;
+}

@@ -1,7 +1,7 @@
 import styles from './Dashboard.module.css';
 import {useCollection} from "../../hooks/useCollection";
 import {alert_Error} from "../../helpers/AlertHelpers";
-import ProjectList from "../../components/ProjectList";
+import ProjectList from "../../components/project/ProjectList";
 
 const Dashboard = () =>{
     const {error, documents} = useCollection('projects')

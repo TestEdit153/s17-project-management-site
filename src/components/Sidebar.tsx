@@ -14,7 +14,6 @@ const Sidebar = () =>{
         <div className={styles.main}>
             <div className={styles["sidebar-content"]}>
                 <Avataar user={user} />
-                <div className={styles.user}> hey {user.displayName} </div>
                 <div className={styles["navlinks"]}>
                     <ul>
                         <li>

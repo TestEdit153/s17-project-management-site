@@ -9,7 +9,6 @@ import Login from './pages/login/Login';
 import Signup from "./pages/signup/Signup";
 import Sidebar from './components/Sidebar';
 import {useAuthContext} from "./hooks/useAuthContext";
-import OnlineUsers from "./components/OnlineUsers";
 
 function App() {
     //@ts-ignore
